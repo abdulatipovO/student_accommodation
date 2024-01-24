@@ -1,0 +1,228 @@
+{% extends 'wrapper.html' %}
+
+{% block title %}
+    Xonalar
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3 class="text-uppercase">{{ floor.title }} </h3>
+</div> 
+
+    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#" class="btn icon icon-left btn-primary" data-bs-toggle="modal" data-bs-target="#inlineForm"><span class="fa-fw select-all fas"></span> Xona qo'shish</a></li>
+        </ol>
+    </nav>
+<div class="page-content"> 
+    
+
+
+        <div class="row">
+            {% for r in rooms %}
+          <div class="col-md-4">
+              <div class="card ">
+                    <a href="{% url 'main:control-bed' r.id %}">
+                    <div class="card-body">
+                        <!-- <div class="the-icon stats-icon green  mb-3 mx-auto">
+                            <span class="fa-fw select-all fas text-white" style="transform: rotate(90deg);"></span>
+                        </div> -->
+                        <h4 class="text-center" id="room_title-{{ r.id }}">{{ r.title }}</h4>
+                    </div>
+                    </a>
+                    <div class="comment-actions mx-auto card-footer">
+                        <a href="#" class="badge  icon icon-left bg-warning me-2 badge-hover" data-bs-toggle="modal" data-bs-target="#inlineFormUpdate" onclick="updateRoom('{{ r.id }}')"><i class="bi bi-pencil-square"></i> Tahrirlash</a>
+                        <a href="#"  type="button" class="badge  icon icon-left bg-danger me-2"   data-bs-toggle="modal" data-bs-target="#inlineFormDelete" onclick="deleteRoom('{{ r.id }}')"><i class="bi bi-x-circle"></i> O'chirish</a>
+                    </div>
+                </div>
+          </div>
+          {% endfor %}
+
+        </div>
+
+
+
+        <!-- modal create -->
+        
+        <div class="modal fade text-left" id="inlineForm" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Xona qo'shish</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                                <i class="fa-fw select-all fas" ></i>
+                        </button>
+                    </div>
+                    <form action="{% url 'main:create-room' floor.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                        
+                            <label for="password">Xona raqami: </label>
+                            <div class="form-group mt-2">
+                                <input id="floor" type="text" placeholder="Xona raqami" class="form-control" name="room_title" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Orqaga</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1" >
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Saqlash</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- modal create -->
+
+        <!-- modal delete -->
+
+        
+        <div class="modal fade text-left" id="inlineFormDelete" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h4 class="modal-title" id="myModalLabel33"></h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                                <i class="fa-fw select-all fas" ></i>
+                        </button>
+                    </div>
+                    <form action="{% url 'main:delete-room' floor.id  %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+
+                            <h3 class="text-center">Ushbu xonani o'chirishni xoxlaysizmi ?</>
+                            <div class="form-group mt-2 d-none">
+                                <input id="room_id" type="text" placeholder="" class="form-control" name="room_id" >
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Yo'q</span>
+                            </button>
+                            <button type="submit" class="btn btn-danger ms-1" >
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Ha</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- modal delete -->
+
+        <!-- modal update -->
+
+        <div class="modal fade text-left" id="inlineFormUpdate" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Tahrirlash</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                                <i class="fa-fw select-all fas" ></i>
+                        </button>
+                    </div>
+                    <form action="{% url 'main:update-room' floor.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <!-- <div class="form-group">
+                                <select class="form-select" id="basicSelect">
+                                    <option>TTJ-1</option>
+                                    <option>Blade Runner</option>
+                                    <option>Thor Ragnarok</option>
+                                </select>
+                            </div> -->
+                            <label for="password">Xona raqami: </label>
+                            <div class="form-group mt-2">
+                                <input id="room_title" type="text" placeholder="Xona raqami" class="form-control" name="room_title" required>
+                                <input id="room_id_update" type="text" placeholder="Xona raqami" class="form-control d-none" name="room_id" >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Orqaga</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1" >
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Saqlash</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- modal update -->
+
+
+
+        </div>
+    
+</div>
+
+<style>
+    .card{
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    padding: 14px 10px 18px 10px;
+    cursor: pointer;
+    }
+    
+    .card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+    
+    .card h4{
+      font-weight: 700;
+    }
+    
+
+    
+    
+    
+    @media(max-width: 990px){
+      .card{
+        margin: 20px;
+      }
+    } 
+</style>
+
+<script>
+    function deleteRoom(id){
+        let e = document.getElementById('room_id').value = id
+   
+    }
+
+    function updateRoom(id){
+        let room_title = document.getElementById(`room_title-${id}`).textContent
+        let r = document.getElementById('room_title').value = room_title
+
+
+        let room_id = document.getElementById('room_id_update').value = id
+
+   
+    }
+</script>
+
+
+
+{% endblock content %}

@@ -1,0 +1,134 @@
+{% extends 'wrapper.html' %}
+
+
+
+{% block title %}
+    Binolar
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3 class="text-uppercase">Talabalar turar joylari</h3>
+</div> 
+<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#" class="btn icon icon-left btn-primary" data-bs-toggle="modal" data-bs-target="#inlineFormDorm"><span class="fa-fw select-all fas"></span> Bino qo'shish</a></li>
+  </ol>
+</nav>
+<div class="page-content"> 
+
+
+        <div class="row">
+            {% for a in accommadations %}
+            
+          <div class="col-md-4">
+            <a href="{% url 'main:control-floor' a.id %}">
+                <div class="card ">
+                    <div class="the-icon stats-icon green  mb-3 mx-auto">
+                        <span class="fa-fw select-all fas text-white"></span>
+                    </div>
+                    <h4 class="text-center">{{ a.title }} 
+                        {% if a.type == 'boys' %}
+                        <span class="text-muted"> (o'g'il bolalar)</span>
+                        {% else %}
+                        <span class="text-muted"> (qiz bolalar)</span>
+                        {% endif %}
+                    </h4>  
+                    
+                </div>
+            </a>
+          </div>
+          {% endfor %}
+
+        </div>
+
+        <!-- modal create -->
+
+        <div class="modal fade text-left" id="inlineFormDorm" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel33">Bino qo'shish</h4>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                              <i class="fa-fw select-all fas" ></i>
+                      </button>
+                  </div>
+                  <form action="" method="post">
+                      {% csrf_token %}
+                      <div class="modal-body">
+                          
+                          <label for="password">Bino nomi: </label>
+                          <div class="form-group mt-2">
+                              <input id="floor" type="text" placeholder="Bino nomi" class="form-control" name="dorm_title" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="gender">Kimlar uchun ?</label>
+                                <select class="form-select mt-2" id="gender" name="gender" required>
+                                  <option value="">Tanlang</option>
+                                    <option value="boys">O'g'il bolalar</option>
+                                    <option value="girls">Qiz bolalar</option>
+                                </select>
+                            </div>
+                            
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                              <i class="bx bx-x d-block d-sm-none"></i>
+                              <span class="d-none d-sm-block">Orqaga</span>
+                          </button>
+                          <button type="submit" class="btn btn-primary ms-1" >
+                              <i class="bx bx-check d-block d-sm-none"></i>
+                              <span class="d-none d-sm-block">Saqlash</span>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          
+      </div>
+    
+      <!-- modal create -->
+
+
+
+    
+</div>
+
+<style>
+    .card{
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    padding: 14px 10px 18px 10px;
+    cursor: pointer;
+    }
+    
+    .card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+    
+    .card h4{
+      font-weight: 700;
+    }
+    
+
+    
+    
+    
+    @media(max-width: 990px){
+      .card{
+        margin: 20px;
+      }
+    } 
+</style>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,300 @@
+{% extends 'student-pages/wrapper-student.html' %}
+
+{% block content-student %}
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3>Info dorm</h3>
+</div> 
+    
+<div class="page-content" >
+         
+    <div class="row">
+
+        <div class="col-12 col-md-3 mt-2">
+
+            <div class="accordion accordion-flush " id="accordionFlushExampleDorm">
+                {% for a in accommadations %}
+                <div class="accordion-item acc-item">
+
+                        <div class="accordion-header " id="flush-dorm-{{ a.id }}" style="width:250px;">
+                            <button class="accordion-button collapsed  acc-item-btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ a.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ a.id }}">
+                                {{ a.title }} 
+                                {% for d in accommadation_info %} 
+
+                                {% if a.id == d.accommadation_id %}
+
+                                  ( {{ d.beds_dorm_full  }} / {{ d.all_place_dorm  }} )
+
+                                {% else %}
+                                {% endif %}
+                                {% endfor %}
+                            </button>
+                        </div>
+
+                        <div id="flush-collapseOne-{{ a.id }}"
+                         class="accordion-collapse collapse c-body "
+                          aria-labelledby="flush-dorm-{{ a.id }}" 
+                          data-bs-parent="#accordionFlushExampleDorm" 
+                          >
+
+                            <div class="arrow-floor">
+
+                            </div>
+
+                            <div class="accordion-body ">
+
+                                <div class="accordion accordion-flush" id="accordionFloor">
+
+                                    {% for f in a.accommadations.all %} 
+
+                                    <div class="accordion-item mt-2" >
+
+                                        <div class="accordion-header floor-body" id="flush-headingFloor-{{ f.id }}" >
+
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFloor-{{ f.id }}" aria-expanded="false" aria-controls="flush-collapseFloor-{{ f.id }}">
+                                                {{ f.title }} 
+                                                {% for floor_info in floor_info %} 
+
+                                                {% if f.id == floor_info.floor_id %}
+                
+                                                 <br> ({{ floor_info.beds_floor_full  }} / {{ floor_info.all_place_floor  }})
+                                                  
+                                                {% else %}  
+                                                {% endif %}
+                                                {% endfor %}
+                                            </button>
+
+
+                                        </div>
+
+                                        <div id="flush-collapseFloor-{{ f.id }}" class="accordion-collapse collapse c-body-floor" aria-labelledby="flush-headingFloor-{{ f.id }}" data-bs-parent="#accordionFloor" >
+                                            <div class="arrow-floor">
+            
+                                            </div>
+
+                                            <div class="accordion-body">
+
+                                                <div class="accordion accordion-flush" id="accordionFlushRoom">
+
+                                                    {% for r in f.floors.all %} 
+
+                                                    <div class="accordion-item mt-2">
+
+
+                                                        <div class="accordion-header room-body" id="flush-headingRoom-{{ r.id }}" >
+                                                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRoom-{{ r.id }}" aria-expanded="false" aria-controls="flush-collapseRoom-{{ r.id }}">
+                                                                {{ r.title }}
+                                                                
+                                                                {% for room_info in room_info %} 
+
+                                                                {% if r.id == room_info.room_id %}
+                                
+                                                                 <br> ({{ room_info.beds_room_full  }} / {{ room_info.all_place_room }})
+                                                                  
+                                                                {% else %}  
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </button>
+                                                        </div>
+                                                        
+                                                        <div id="flush-collapseRoom-{{ r.id }}" class="accordion-collapse collapse c-body-floor" aria-labelledby="flush-headingRoom-{{ r.id }}" data-bs-parent="#accordionFlushRoom" style="width:250px;">
+                                                            <div class="arrow-floor">
+                                    
+                                                            </div>
+
+                                                            <div class="accordion-body ">
+
+                                                                <div class="accordion accordion-flush " id="accordionFlushStudentId" >
+
+                                                                    {% for b in r.rooms.all %}
+                                                                    
+
+                                                                    <div class="accordion-item mt-2">
+
+                                                                        {% if b.beds.all.count >  0 %}
+
+
+                                                                        <div class="accordion-header" id="flush-headingStudentId" style="width:250px;">
+                                                                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseStudentId-{{ b.id }}" aria-expanded="false" aria-controls="flush-collapseStudentId-{{ b.id }}">
+                                                                                {{ b.bed_number }} <span class="text text-success fw-bold">(band)</span>
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:350px;" >
+                                                                                <div class="arrow-floor">
+                                                        
+                                                                                </div>
+
+                                                                                <div class="accordion-body" style="width:350px;">
+                                                                                    <p class="text-center">
+                                                                                        Ushbu joy band !
+                                                                                    </p>           
+                                                                                </div>
+                                                                                
+                                                                        </div>
+                                                                        {% else %}
+                                                                        <div class="accordion-header" id="flush-headingStudentId" style="width:250px;">
+                                                                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseStudentId-{{ b.id }}" aria-expanded="false" aria-controls="flush-collapseStudentId-{{ b.id }}">
+                                                                                {{ b.bed_number }} <span class="text text-warning fw-bold">(bo'sh)</span>
+                                                                            </button>
+                                                                         
+                                                                        </div>
+                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:350px;" >
+                                                                            <div class="arrow-floor">
+                                                    
+                                                                            </div>
+                                                                            <div class="accordion-body" style="width:350px;">
+                                                                                <p class="text-center">
+                                                                                    Ushbu joy bo'sh !
+                                                                                </p>
+                                                                                    
+                                                                            </div>
+                                                                        </div>
+                                                                        {% endif %}
+
+                                                                    </div>
+
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    
+                                                    {% endfor %} 
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                </div>
+                {% endfor %}
+
+        
+            </div>
+
+        </div>
+
+    </div>
+
+<style>
+
+        .accordion-button:not(.collapsed)::after {
+            transform: rotate(180deg);
+            }
+            .accordion-button::after {
+            transform: rotate(-90deg);
+
+            
+              }
+
+        .accordion-item{
+            margin-top: 10px;
+            border-radius: 10px !important;
+        
+            
+
+        }
+        .acc-item{
+            width: 200px;
+        }
+        .acc-item-btn{
+            width: 170px !important;
+        }
+        
+        .floor-body .accordion-button{
+            width: 120px;
+        }
+        .student-body{
+            margin-left: 100px;
+        }
+        .room-body{
+            width: 150px;
+        }
+        .room-body .accordion-button{
+            width: 120px;
+        }
+        .c-body{
+            position:absolute;
+            left: 555px;
+            width:150px; 
+            background-color: white;
+            margin-top: -50px;
+            border-radius: 10px;
+            animation: AccAnimation 1s;
+        }
+        .accordion-button{
+           
+            width: 200px;
+            border-radius: 10px;
+            padding: 10px 10px;
+            
+        }
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: white;
+           /* background-color: #435EBE; */
+           
+        }
+  
+        .c-body-floor{
+            position:absolute;
+            left: 170px;
+            width:150px; 
+            background-color: white;
+            margin-top: -50px;
+            border-radius: 10px;
+            animation: AccAnimation 1s;
+        }
+        
+        .arrow{
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            position: relative;
+            top: -10px;
+            left: 50px;
+            transform: rotate(45deg);
+            
+        }
+        
+        .arrow-floor{
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            position: relative;
+            top: 20px;
+            left: -10px;
+            transform: rotate(45deg);
+            
+        }
+
+        @keyframes AccAnimation{
+            from{
+                opacity: 0;
+            }
+            to{
+                opacity: 1;
+            }
+        }
+   
+</style>
+
+  
+{% endblock content-student %}

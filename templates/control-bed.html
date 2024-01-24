@@ -1,0 +1,230 @@
+{% extends 'wrapper.html' %}
+{% block title %}
+    Joylar
+{% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/assets/extensions/choices.js/public/assets/styles/choices.css">
+
+
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3 class="text-uppercase">{{ room.title }}</h3>
+</div> 
+<div class="page-content">
+
+    <div class="row match-height">
+
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <ol class="breadcrumb float-end float-lg-end">
+                        <li class="breadcrumb-item"><a href="#" class="btn icon icon-left btn-primary" data-bs-toggle="modal" data-bs-target="#inlineForm"><span class="fa-fw select-all fas"></span> Joy qo'shish</a></li>
+                    </ol>
+                </div>
+      
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="list-group list-group-horizontal-sm mb-1 text-center" role="tablist">
+                            {% for b in beds %}
+                            <a class="list-group-item list-group-item-action {% if beds.0.id == b.id %} active {% else %}  {% endif %}" id="list-sunday-list-{{ b.id }}" 
+                            data-bs-toggle="list" href="#list-{{ b.id }}" role="tab" aria-selected="true">#{{ b.bed_number }} {% if b.status %} (band) {%else%} (bo'sh) {% endif %}</a>
+                            {% endfor %}
+
+                        </div>
+                        {% for b in beds %}
+                       
+
+                        <div class="tab-content text-justify">
+                            <div class="tab-pane fade show {% if beds.0.id == b.id %} active {% else %}  {% endif %}" id="list-{{ b.id }}" role="tabpanel" aria-labelledby="list-sunday-list-{{ b.id }}">
+                                {% if b.beds.all.count > 0 %}
+                                <div class="list-group mt-2">
+                                    <span class="list-group-item fw-bold">
+                                        Talaba: <span class="fw-normal">{{ b.beds.all.0.first_name}} {{ b.beds.all.0.last_name}} {{ b.beds.all.0.middle_name}}</span>
+                                    </span>
+                                    <span class="list-group-item fw-bold">
+                                        Fakultet: <span class="fw-normal">{{ b.beds.all.0.faculty}}</span>
+                                    </span>
+                                    <span class="list-group-item fw-bold">
+                                        Yo'nalishi: <span class="fw-normal">{{ b.beds.all.0.course_of_study}}</span>
+                                    </span>
+                                    <span class="list-group-item fw-bold">
+                                        Bosqich: <span class="fw-normal">{{ b.beds.all.0.stage}}</span>
+                                    </span>
+                                    <span class="list-group-item fw-bold">
+                                        Guruhi: <span class="fw-normal">{{ b.beds.all.0.group }}</span>
+                                    </span>
+                                    
+                                </div>
+                                {% else %}
+                                <h4 class="text-center mt-3">Ushbu joy bo'sh !</h4>
+                              
+                                {% endif %}
+                                <div class="comment-actions mx-auto mt-4 ">
+                                    <a href="#" class="badge  icon icon-left bg-warning me-2 badge-hover py-2" data-bs-toggle="modal" data-bs-target="#inlineUpdateBed-{{ b.id }}" onclick="updateRoom('{{ r.id }}')"><i class="bi bi-pencil-square"></i> Tahrirlash</a>
+                                    <a href="#"  type="button" class="badge  icon icon-left bg-danger me-2 py-2"   data-bs-toggle="modal" data-bs-target="#inlineFormDelete" onclick="deleteRoom('{{ r.id }}')"><i class="bi bi-x-circle"></i> O'chirish</a>
+                                </div>
+                            </div>
+
+                            <!-- update modal -->
+                                <div class="modal fade text-left" id="inlineUpdateBed-{{ b.id }}" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                        <div class="modal-content" >
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel33">#{{ b.bed_number }}</h4>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                                                    <i class="fa-fw select-all fas" ></i>
+                                                </button>
+                                            </div>
+                                            <form action="{% url 'main:update-bed' room.id %}" method="post" >
+                                                {% csrf_token %}
+                                                <div class="modal-body" >
+
+                                                        <div class="form-group">
+
+                                                            <label>Ushbu xonani tahrirlash</label>
+                                                            <input id="bed_title-{{ b.id }}"  type="text" placeholder="Joy raqami" value="{{ b.bed_number }}" class="form-control mt-2" name="bed_number" >
+                                                            
+                                                        </div>
+                                                        <input  type="text" placeholder="Joy raqami" value="{{ b.id }}" class="form-control d-none" name="bed_id" >
+                                                        
+                                                    
+                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Orqaga</span>
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Saqlash</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- update modal-->
+
+                            <!-- modal delete -->
+
+        
+                            <div class="modal fade text-left" id="inlineFormDelete" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h4 class="modal-title" id="myModalLabel33"></h4>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                                                    <i class="fa-fw select-all fas" ></i>
+                                            </button>
+                                        </div>
+                                        <form action="{% url 'main:delete-bed' room.id  %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+
+                                                <h4 class="text-center">Ushbu joyni o'chirishni xoxlaysizmi ?</h4>
+                                                <div class="form-group mt-2 d-none">
+                                                    <input id="bed_id" type="text" placeholder="" class="form-control" name="bed_id" value="{{ b.id }}">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center">
+                                                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Yo'q</span>
+                                                </button>
+                                                <button type="submit" class="btn btn-danger ms-1" >
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Ha</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- modal delete -->
+
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
+
+   
+
+
+  
+    <!-- create modal -->
+
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">Qavat qo'shish</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                        <i class="fa-fw select-all fas" ></i>
+                    </button>
+                </div>
+                <form action="{% url 'main:create-bed' room.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <label for="password">Joy raqami: </label>
+                        <div class="form-group mt-2">
+                            <input id="floor" type="text" placeholder="Joy raqami" class="form-control" name="bed_number">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Orqaga</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Saqlash</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- create modal -->
+    
+
+    
+
+   
+
+
+
+
+
+
+</div>
+
+<script>
+    function bedNumber(id){
+        console.log(id)
+        document.getElementById('bed_title').value = id
+    }
+
+ 
+</script>
+
+<style>
+  
+
+</style>
+
+<script src="/static/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+<script src="/static/assets/static/js/pages/form-element-select.js"></script>
+
+{% endblock content %}

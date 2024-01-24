@@ -1,0 +1,272 @@
+{% extends 'wrapper.html' %}
+{% block title %}
+    Asosiy sahifa
+{% endblock title %}
+
+{% block content %}
+            
+<div class="page-heading" style="margin-top: -85px;">
+    <h3>Asosiy sahifa</h3>
+</div> 
+<div class="page-content"> 
+    <section class="row">
+        <div class="col-12 col-lg-12">
+            <div class="row">
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card p-4">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                    <div class="the-icon stats-icon purple mb-2">
+                                        <span class="fa-fw select-all fas text-white fs-5"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                    <span class="text-muted font-semibold">TTJ soni</>
+                                    <h6 class="font-extrabold mb-0">{{ all_dormitory }} ta</h6>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card p-4"> 
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                    <div class="the-icon stats-icon blue mb-2">
+                                        <span class="fa-fw select-all fas text-white fs-5"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                    <span class="text-muted font-semibold ">Xonalar soni</>
+                                    <h6 class="font-extrabold mb-0">{{ rooms }} ta</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card p-3">
+                        <div class="row ">
+                            <div class="col-md-12 text-center d-flex mt-1" >
+                                <p class="text-muted mx-auto">Talabalar soni: <span class="fw-bold" style="color: #25396f;">{{ students }} ta</></>
+
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="col-md-12" style="text-align:center;">
+                                    <p class="text-muted mx-auto">O'g'il bolalar</p>
+                                </div>
+                               
+                                <div class="row" >
+                                    <div class="col-md-6 px-4" >
+                                        <i class="stats-icon bi bi-gender-male text-white fs-4 float-start" style="background-color:#00C4AA; width:40px; height:40px;"></i>
+                                    </div>
+                                    <div class="col-md-6" style="margin-top:8px; margin-left:-10px;">
+                                        <h6 class="fw-bold">{{ boys }} ta</h6>
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="col-md-12" style="text-align:center;">
+                                    <p class="text-muted mx-auto">Qiz bolalar</p>
+                                </div>
+                               
+                                <div class="row" >
+                                    <div class="col-md-6 px-4" style="border-left: 1px solid;">
+                                        <i class="stats-icon bi bi-gender-female text-white fs-4 float-start" style="background-color:palevioletred; width:40px; height:40px;"></i>
+                                    </div>
+                                    <div class="col-md-6 " style="margin-top:8px; margin-left:-10px;">
+                                        <h6 class="fw-bold ">{{ girls }} ta</h6>
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+                           
+                        </div>
+                 
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-4 col-md-6  ">
+
+                        <div class="card p-3 all-part py-4-5"  >
+
+                            <div class="row">
+
+                                <div class="col-md-6 first-part ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {% if autumn_semester == None %}
+                                            <h6 class="float-start">0 so'm</h6>
+                                            {% else %}
+                                            <h6 class="float-start pr-3">{{ autumn_semester }} so'm</h6>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="float-start ">Kuzgi</p>
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+
+                                <div class="col-md-6 second-part d-block ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="float-end">Bahorgi</p>
+                                        </div>
+    
+                                        <div class="col-md-12">
+                                            {% if spring_semester == None %}
+                                            <h6 class="float-start" >0 so'm</h6>
+                                            {% else %}
+                                            <h6 class="float-start">{{ spring_semester }} so'm</h6>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card ">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row ">
+                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                    <div class="stats-icon  mb-2" style="background-color: gray;">
+                                        <span class="fa-fw select-all fas text-white fs-5"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                    <span class="text-muted font-semibold"> </>
+                                    <h6 class="font-extrabold mb-0"><button class="btn btn-info text-white btn-xxl" data-bs-toggle="modal" data-bs-target="#inlineAppTable">Arizalarni ko'rish</button></h6>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+        
+    </section>
+</div>
+
+
+<div class="modal fade text-left" id="inlineAppTable" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4  id="myModalLabel33">Arizalar ro'yxati</h4>
+                <button type="button" class="close " data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; ">
+                        <i class="fa-fw select-all fas" ></i>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="table-responsive" style="max-height: 50vh; overflow-y:scroll; padding:10px;">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Talaba ID</th>
+                                <th>Yuborilgan sana</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for a in applications %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td class="text-bold-500">{{ a.student_id }}</td>
+                                <td>{{ a.created_at|date:"d/m/Y | G:i" }}</td>
+
+                            </tr>
+                           {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .all-part{
+       
+        background: linear-gradient(to top left, white 0 50%, #F2F7FF 50% 52% , white 52% 100%);
+    }
+    .first-part p{
+       padding-left: 10px;
+        margin-top: 15px;
+        
+    }
+    .first-part span{
+        color: #25396f;
+        font-size: 18px;
+       padding-left: 10px;
+       font-weight: bold;
+
+    }
+    .second-part p{
+        padding-right: 10px;
+        margin-top: 10px;
+    }
+    .second-part span{
+        color: #25396f;
+        font-size: 18px;
+        font-weight: bold;
+       
+        
+    }
+
+    .card{
+        border-radius: 4px;
+        /*background: #fff;*/
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+        padding: 14px 10px 18px 10px;
+        cursor: pointer;
+        z-index: 0;
+
+        }
+        
+        .card:hover{
+        transform: scale(1.05);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        }
+        
+        .modal-header h4{
+            font-size: calc(16px + 0.390625vw);
+
+        }
+        .modal-header i{
+            font-size: calc(16px + 0.390625vw);
+
+        }
+        
+        i {
+            font-size: calc(16px + 0.390625vw);
+        }
+
+        .btn{
+            font-size: calc(12px + 0.390625vw);
+
+        }
+        
+     
+
+</style>
+
+{% endblock content %}

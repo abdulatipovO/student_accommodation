@@ -1,0 +1,84 @@
+{% extends 'wrapper.html' %}
+{% block title %}
+Talabalar ro'yxati
+{% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/assets/extensions/simple-datatables/style.css">
+<link rel="stylesheet" href="/static/assets/compiled/css/table-datatable.css">
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3>Talabalar ro'yxati</h3>
+    
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="card mt-2">
+            <div class="card-header">
+                <h5 class="card-title">
+                    
+                </h5>
+            </div>
+            <div class="card-body">
+              
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>#TTJ</th>
+                            <th>Qavat</th>
+                            <th>Xona</th>
+                            <th>Joy</th>
+                            <th>Talaba</th>
+                            <th>Telefon</th>
+                            <th>Boshlanish sanasi</th>
+                            <th>Tugash sanasi</th>
+                            <th>Summa</th>
+                            <th>Qarz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in students %}
+                        <tr>
+                            <td>{{ s.bed.room.floor.accommadation.title }}</td>
+                            <td>{{ s.bed.room.floor.title }}</td>
+                            <td>{{ s.bed.room.title }}</td>
+                            <td>#{{ s.bed.bed_number }}</td>
+                            <td>{{ s.first_name }} {{ s.last_name }} {{ s.middle_name }}</td>
+                            <td>{{ s.phone }}</td>
+                           
+                            <td>
+                                {{ s.bed.payments.all.0.start_date|date:"d/m/Y" }}
+                            </td>
+                            <td>
+                                {{ s.bed.payments.all.0.end_date|date:"d/m/Y" }}
+                            </td>
+                            <td>
+                                {{ s.bed.payments.all.0.payment_amount }}
+                               
+                            </td>
+                          
+                            <td>{{ s.bed.payments.all.0.difference_money }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+<script src="/static/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="/static/assets//static/js/pages/simple-datatables.js"></script>
+
+
+<style>
+    .dataTable-input , .dataTable-dropdown {
+        font-size: calc(12px + 0.390625vw);
+    }
+</style>
+
+
+{% endblock content %}

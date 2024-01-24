@@ -1,0 +1,96 @@
+{% extends 'wrapper.html' %}
+{% block title %}
+    Oylik to'lov narxi
+{% endblock title %}
+{% block content %}
+
+
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3 class="text-uppercase">Oylik to'lov narxi</h3>
+</div> 
+<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#" class="btn icon icon-left btn-warning text-white" data-bs-toggle="modal" data-bs-target="#inlineFormDorm"><span class="fa-fw select-all fas me-2"></span>Tahrirlash</a></li>
+  </ol>
+</nav>
+<div class="page-content"> 
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="card">
+                <h6 class="card-title text-center">Bir oylik to'lov narxi</h6>
+                <div class="card-body">
+                    <h5 class="text-center">{{ monthly_price.price }} so'm</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        <!-- modal create -->
+
+        <div class="modal fade text-left" id="inlineFormDorm" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel33">Tahrirlash</h4>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                              <i class="fa-fw select-all fas" ></i>
+                      </button>
+                  </div>
+                  <form action="{% url 'main:price-month-edit'  monthly_price.id %}" method="post">
+                      {% csrf_token %}
+                      <div class="modal-body">
+                          
+                          <label for="password">Narx: </label>
+                          <div class="form-group mt-2">
+                              <input id="floor" type="number" placeholder="Narx" class="form-control" value="{{ monthly_price.price }}" name="edit_price" required>
+                          </div>
+              
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                              <i class="bx bx-x d-block d-sm-none"></i>
+                              <span class="d-none d-sm-block">Orqaga</span>
+                          </button>
+                          <button type="submit" class="btn btn-primary ms-1" >
+                              <i class="bx bx-check d-block d-sm-none"></i>
+                              <span class="d-none d-sm-block">Saqlash</span>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          
+      </div>
+    
+      <!-- modal create -->
+
+
+
+    
+</div>
+
+<style>
+    .card{
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    padding: 14px 10px 18px 10px;
+    cursor: pointer;
+    }
+    
+    
+    .card h4{
+      font-weight: 700;
+    }
+</style>
+
+
+
+
+{% endblock content %}

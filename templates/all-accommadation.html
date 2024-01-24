@@ -1,0 +1,859 @@
+{% extends 'wrapper.html' %}
+{% block title %}
+Talaba biriktirish
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/assets/extensions/choices.js/public/assets/styles/choices.css">
+
+
+
+<div class="page-heading" style="margin-top: -85px;">
+    <h3>Talaba biriktirish</h3>
+</div> 
+    
+<div class="page-content" >
+
+
+    <div class="row">
+
+        <div class="col-12 col-md-3 mt-2">
+
+            <div class="accordion accordion-flush " id="accordionFlushExampleDorm">
+                {% for a in accommadations %}
+                <div class="accordion-item acc-item">
+
+                        <div class="accordion-header " id="flush-dorm-{{ a.id }}" style="width:250px;">
+                            <button class="accordion-button collapsed  acc-item-btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ a.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ a.id }}">
+                                {{ a.title }} 
+                                {% for d in accommadation_info %} 
+
+                                {% if a.id == d.accommadation_id %}
+
+                                  ( {{ d.beds_dorm_full  }} / {{ d.all_place_dorm  }} )
+
+                                {% else %}
+                                {% endif %}
+                                {% endfor %}
+                            </button>
+                        </div>
+
+                        <div id="flush-collapseOne-{{ a.id }}"
+                         class="accordion-collapse collapse c-body "
+                          aria-labelledby="flush-dorm-{{ a.id }}" 
+                          data-bs-parent="#accordionFlushExampleDorm" 
+                          >
+
+                            <div class="arrow-floor">
+
+                            </div>
+
+                            <div class="accordion-body ">
+
+                                <div class="accordion accordion-flush" id="accordionFloor">
+
+                                    {% for f in a.accommadations.all %} 
+
+                                    <div class="accordion-item mt-2" >
+
+                                        <div class="accordion-header floor-body" id="flush-headingFloor-{{ f.id }}" >
+
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFloor-{{ f.id }}" aria-expanded="false" aria-controls="flush-collapseFloor-{{ f.id }}">
+                                                {{ f.title }} 
+                                                {% for floor_info in floor_info %} 
+
+                                                {% if f.id == floor_info.floor_id %}
+                
+                                                 <br> ({{ floor_info.beds_floor_full  }} / {{ floor_info.all_place_floor  }})
+                                                  
+                                                {% else %}  
+                                                {% endif %}
+                                                {% endfor %}
+                                            </button>
+
+
+                                        </div>
+
+                                        <div id="flush-collapseFloor-{{ f.id }}" class="accordion-collapse collapse c-body-floor" aria-labelledby="flush-headingFloor-{{ f.id }}" data-bs-parent="#accordionFloor" >
+                                            <div class="arrow-floor">
+            
+                                            </div>
+
+                                            <div class="accordion-body" style="overflow-y:scroll; overflow-x:hidden; max-height:400px; margin-left:-5px;">
+
+                                                <div class="accordion accordion-flush" id="accordionFlushRoom" >
+
+                                                    {% for r in f.floors.all %} 
+
+                                                    <div class="accordion-item mt-2">
+
+
+                                                        <div class="accordion-header room-body" id="flush-headingRoom-{{ r.id }}" >
+                                                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRoom-{{ r.id }}" aria-expanded="false" aria-controls="flush-collapseRoom-{{ r.id }}">
+                                                                {{ r.title }}
+                                                                
+                                                                {% for room_info in room_info %} 
+
+                                                                {% if r.id == room_info.room_id %}
+                                
+                                                                 <br> ({{ room_info.beds_room_full  }} / {{ room_info.all_place_room }})
+                                                                  
+                                                                {% else %}  
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </button>
+                                                        </div>
+                                                        
+                                                        <div id="flush-collapseRoom-{{ r.id }}" class="accordion-collapse collapse c-body-floor" aria-labelledby="flush-headingRoom-{{ r.id }}" data-bs-parent="#accordionFlushRoom" style="width:250px;">
+                                                            <div class="arrow-floor">
+                                    
+                                                            </div>
+
+                                                            <div class="accordion-body ">
+
+                                                                <div class="accordion accordion-flush " id="accordionFlushStudentId" >
+
+                                                                    {% for b in r.rooms.all %}
+                                                                    
+
+                                                                    <div class="accordion-item mt-2">
+
+                                                                        {% if b.beds.all.count >  0 %}
+
+
+                                                                        <div class="accordion-header" id="flush-headingStudentId" style="width:250px;">
+                                                                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" 
+                                                                            data-bs-target="#flush-collapseStudentId-{{ b.id }}" aria-expanded="false" 
+                                                                            aria-controls="flush-collapseStudentId-{{ b.id }}" onclick="getStudendId('{{ b.id }}', '{{ b.beds.all.0.id }}')">
+                                                                                {{ b.bed_number }} <span class="text text-success fw-bold">(band)</span>
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:350px;" >
+                                                                                <div class="arrow-floor">
+                                                        
+                                                                                </div>
+
+                                                                                <div class="accordion-body" style="width:350px;">
+                                                                                    <div class="list-group">
+                                                                                        <span class="list-group-item">
+                                                                                            Talaba-ID: {{ b.beds.all.0.student_id }}
+                                                                                        </span>
+                                                                                        <span class="list-group-item">F.I.O: {{ b.beds.all.0.first_name }} {{ b.beds.all.0.last_name }} {{ b.beds.all.0.middle_name }}</span>
+                                                                                        <span class="list-group-item disabled">Fakultet: {{ b.beds.all.0.faculty }}</span>
+                                                                                        <span class="list-group-item">Yo'nalish: {{ b.beds.all.0.course_of_study }}</span>
+                                                                                        <span class="list-group-item">Bosqich: {{ b.beds.all.0.stage }}</span>
+                                                                                        <span class="list-group-item">Guruh: {{ b.beds.all.0.group }}</span>
+                                                                                    </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <button 
+                                                                                        class="btn btn-sm icon icon-left btn-danger text-center mt-3" 
+                                                                                        data-bs-toggle="modal" 
+                                                                                        data-bs-target="#inlineFormDelete" ><span class="fa-fw select-all fas me-2"></span>Talabani chiqarish</button>
+                                                                                    </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <button 
+                                                                                        class="btn btn-sm icon icon-left btn-success text-center mt-2 text-white" 
+                                                                                        data-bs-toggle="modal"
+                                                                                   
+                                                                                        onclick="getPaymentInfo('{{ b.beds.all.0.id }}')"
+                                                                                        data-bs-target="#inlineFormPayment" ><span class="fa-fw select-all fas me-2" ></span>To'lov</button>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                
+                                                                                        
+                                                                                </div>
+                                                                                
+                                                                        </div>
+                                                                        {% else %}
+                                                                        <div class="accordion-header" id="flush-headingStudentId" style="width:250px;">
+                                                                            <button   
+                                                                            class="accordion-button collapsed "
+                                                                                type="button" data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapseStudentId-{{ b.id }}" 
+                                                                                aria-expanded="false" 
+                                                                                aria-controls="flush-collapseStudentId-{{ b.id }}" 
+                                                                                onclick="getBedId('{{ b.id }}')">
+                                                                                {{ b.bed_number }} <span class="text text-warning fw-bold">(bo'sh)</span>
+                                                                            </button>
+                                                                         
+                                                                        </div>
+                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:350px;" >
+                                                                            <div class="arrow-floor">
+                                                    
+                                                                            </div>
+                                                                            <div class="accordion-body d-block" style="width:350px;">
+                                                                                <p class="text-center">
+                                                                                    Ushbu joy bo'sh !
+                                                                                </p>
+                                                                                <button class="btn icon icon-left btn-primary text-center " 
+                                                                                data-bs-toggle="modal" data-bs-target="#inlineConnectStudent" 
+                                                                                style="margin-left: 70px;" onclick="getBreadcrumb('{{ a.title }}', '{{ f.title }}', '{{r.title}}', '{{ b.bed_number }}')"><span class="fa-fw select-all fas me-2"></span>Talaba biriktirish</button>
+                                                                               
+                                                                                
+                                                                             
+
+
+                                                                                    
+                                                                            </div>
+                                                                        </div>
+                                                                        {% endif %}
+
+                                                                    </div>
+
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    
+                                                    {% endfor %} 
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                </div>
+                {% endfor %}
+
+        
+            </div>
+
+        </div>
+
+    </div>
+   
+
+    
+
+    <!-- add student -->
+
+    
+    <div class="modal fade text-left" id="inlineConnectStudent" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" id="dorm_title">TTJ</li>
+                            <li class="breadcrumb-item active" aria-current="page" id="floor_title">Qavat</li>
+                            <li class="breadcrumb-item active" aria-current="page" id="room_title">xona raqami</li>
+                            <li class="breadcrumb-item active" aria-current="page" id="bed_number_title">joy</li>
+                        </ol>
+                    </nav>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                            <i class="fa-fw select-all fas" ></i>
+                    </button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-md-8 p-4 ">
+
+                            <form action="{% url 'main:connect-create' %}" method="post">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <select class="choices form-select"  id="student_selected" name="student_id"  >
+                                        <option value="">Talabani kiriting ...</option>
+                                        {% for s in students %}
+                                        <option value="{{ s.id }}">ID: {{ s.student_id }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label for="receipt_number" class="mb-2">Kvitansiya raqami</label>
+                                    <input id="receipt_number"  type="number" placeholder="Kvitansiya raqami" class="form-control" name="receipt_number" required >
+    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3">
+                                            <label for="start_date" class="mb-2">Boshlanish sanasi</label>
+                                            
+                                            <input id="start_date" type="date" placeholder="Kvitansiya raqami" class="form-control" name="start_date" required >
+                                            
+            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3">
+                                            <label for="end_date" class="mb-2">Tugash sanasi</label>
+    
+                                            <input  type="date" id="end_date" placeholder="Kvitansiya raqami" class="form-control" name="end_date" required onchange="CalculationDate()" > 
+                                            <p class="mt-1 text-danger" id="date-valid" style="display: none;">Sana kiritishda xatolik !</p>
+            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3">
+                                            <label for="payment_amount" class="mb-2">To'langan summa</label>
+                                            <input id="payment_amount" placeholder="0" type="number" class="form-control" name="payment_amount" required onkeyup="CalculationMoney()" disabled required>
+            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3">
+                                            <label for="difference_money" class="mb-2">Farq</label>
+                                            <input id="difference_money"  type="number" value="0" class="form-control" name="difference_money" disabled>
+                                            <input id="difference_money_hidden"  type="number" value="0" class="form-control d-none" name="difference_money_hidden" >
+                                            
+                                        </div>
+                                    </div>
+                                    <input id="bed_number_id"  type="text" class="form-control d-none" name="bed_number_id" >
+
+                                </div>   
+
+                                <ol class="breadcrumb mt-4 float-end">
+                                    <li class="breadcrumb-item"><button type="submit" class="btn icon icon-left btn-info text-white" ><span class="fa-fw select-all fas me-2 text-white"></span>Saqlash</></li>
+                                </ol>
+    
+                            </form>
+                    
+
+
+                    </div>
+                    <div class="col-md-4 p-4 ">
+                        <div class="list-group" id="list-group-ajax">
+                            <li class="list-group-item">
+                                Talaba-ID: {{ b.beds.all.0.student_id }}
+                            </li>
+                            <li class="list-group-item">F.I.O: {{ b.beds.all.0.first_name }} {{ b.beds.all.0.last_name }} {{ b.beds.all.0.middle_name }}</li>
+                            <li class="list-group-item disabled">Fakultet: {{ b.beds.all.0.faculty }}</li>
+                            <li class="list-group-item">Yo'nalish: {{ b.beds.all.0.course_of_study }}</li>
+                            <li class="list-group-item">Bosqich: {{ b.beds.all.0.stage }}</li>
+                            <li class="list-group-item">Guruh: {{ b.beds.all.0.group }}</li>
+                        </div>
+
+                        <div class="spinner-border text-dark " id="loadingDiv" role="status" >
+                            <span class="visually-hidden " >Yuklanmoqda...</span>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+        
+    </div>
+
+    <!-- end add student -->
+
+    <!-- delete student -->
+
+    <div class="modal fade text-left" id="inlineFormDelete" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h4 class="modal-title" id="myModalLabel33"></h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                            <i class="fa-fw select-all fas" ></i>
+                    </button>
+                </div>
+                <form action="{% url 'main:connect-delete' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+                        <h4 class="text-center">Talabani bu joydan o'chirishni xoxlaysizmi ?</h4>
+                        <div class="form-group mt-2 d-none">
+                            <input id="bed_id" type="text" placeholder="" class="form-control" name="bed_id">
+                            <input id="student_delete_id" type="text" placeholder="" class="form-control" name="student_id" >
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Yo'q</span>
+                        </button>
+                        <button type="submit" class="btn btn-danger ms-1" >
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Ha</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- end delete student -->
+
+    <div class="modal fade text-left" id="inlineFormPayment" tabindex="-1" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33"></h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border-radius:0px; font-size:34px;">
+                            <i class="fa-fw select-all fas" ></i>
+                    </button>
+                </div>
+ 
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-7 ">
+                                <h5 class="mb-3">To'lovlar ro'yxati</h5>
+                                <div class="table-responsive" style="max-height: 50vh; overflow-y:scroll;">
+
+                                    <table class="table mb-0 table-sm table-bordered " >
+                                        <thead>
+                                            <tr>
+                                                <th>Talaba ID</th>
+                                                <th>Kvitansiya raqami</th>
+                                                <th>To'langan summa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-data-ajax">
+                                              
+                                                                
+                                        </tbody>
+
+                                        
+                                    </table>
+                                    <div class="total_info mt-4 ml-3">
+                                        <h6 >To'langan summa jami: <span id="total_payment_amount">0</span> so'm</h6>
+                                        <h6 >Qoldiq jami: <span id="total_difference_money" >0</span> so'm</h6>
+                                    </div>
+                                    <div class="col-md-1 mx-auto">
+                                        <div class="spinner-border text-dark " id="loadingInfo" role="status" >
+                                            <span class="visually-hidden " >Yuklanmoqda...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 " >
+                                <h5 class="mb-3">To'lov qo'shish</h5>
+                                
+                                <form action="{% url 'main:add-payment' %}" method="post" class="p-4 payment-card">
+                                    {% csrf_token %}
+
+                                   
+
+                                    <div class="form-group mt-3">
+                                        <label for="receipt_number_add" class="mb-2">Kvitansiya raqami</label>
+                                        <input id="receipt_number_add"  type="number" placeholder="Kvitansiya raqami" class="form-control" name="receipt_number_add" required >
+        
+                                    </div>
+                                 
+                                        <div class="form-group mt-3">
+                                            <label for="payment_amount_add" class="mb-2">To'langan summa</label>
+                                            <input id="payment_amount_add" placeholder="0" type="number" class="form-control" name="payment_amount_add"   required>
+                                            
+                                        </div>
+                                        <input id="student_add_id" placeholder="0" type="number" class="form-control d-none" name="student_id"   >
+
+                                        <div class="float-end ml-3 mt-5">
+                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Orqaga</span>
+                                            </button>
+                                            <button type="submit" class="btn btn-info " >
+                                                <span class="fa-fw select-all fas me-1 text-white"></span>
+                                                Saqlash
+                                            </button>
+                                        </div>
+                                   
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+           
+            </div>
+        </div>
+
+    </div>
+  
+    <span class="monthly_price d-none">{{ monthly_price.price }}</span>
+   
+    <script src="/static/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+    <script src="/static/assets/static/js/pages/form-element-select.js"></script>
+
+         
+
+</div>
+
+<script>
+    let monthly_payment = document.querySelector('.monthly_price').innerHTML
+
+    let difference_money = document.getElementById('difference_money');
+    let payment_amount = document.getElementById('payment_amount');
+    let payment = 0
+
+    let isLoadingInfo = false
+    isLoadingHandlerInfo()
+
+    let isLoading = false
+    isLoadingHandler()
+
+    function CalculationDate(){
+        
+        let start_date = new Date(document.getElementById('start_date').value);
+        let end_date = new Date(document.getElementById('end_date').value);
+
+        let difference_time  = ( end_date.getTime() - start_date.getTime() ) / (1000*3600*24)
+        
+
+
+        if ( difference_time < 0 ){
+            document.getElementById('date-valid').style.display = "block";
+            payment_amount.disabled = true
+
+        }else{
+            document.getElementById('date-valid').style.display = "none";
+            payment_amount.disabled = false
+            payment = difference_money.value = Math.ceil(difference_time / 30) * Number(monthly_payment)
+
+        }
+
+    }
+    function CalculationMoney(){
+        difference_money.value = payment - payment_amount.value
+        document.getElementById('difference_money_hidden').value = payment - payment_amount.value
+
+        //console.log(new Intl.NumberFormat('ru-RU').format(difference_money.value = payment - payment_amount.value));
+
+    }
+
+
+
+    $('#student_selected').on('change', function(e){
+        
+        let value = $(this).val()
+
+        isLoading = true
+        isLoadingHandler()
+
+        $.ajax({
+            url:"/search/student",
+            method:"GET",
+            data:{'value':value},
+            dataType:'json',
+            success:function(response){
+                AddData(response.data)
+
+            },
+            error:function(error){
+                console.log(error)
+            }
+        });
+        
+
+    });
+
+    let infoStudent = document.querySelector("#list-group-ajax")
+
+    function AddData(student){
+        
+        if(student.length > 0){
+            infoStudent.innerHTML = ''
+            //document.getElementById('receipt_number').disabled = false
+
+            student.forEach(student => {
+                infoStudent.innerHTML = `
+                <li class="list-group-item">
+                    Talaba-ID: ${ student.student_id }
+                </li>
+                <li class="list-group-item">F.I.O: ${student.last_name} ${student.first_name} ${student.middle_name}</li>
+                <li class="list-group-item disabled">Fakultet: ${student.faculty}</li>
+                <li class="list-group-item">Yo'nalish: ${student.course_of_study}</li>
+                <li class="list-group-item">Bosqich: ${student.stage}</li>
+                <li class="list-group-item">Guruh: ${student.group}</li>`
+                
+
+            });
+
+            isLoading = false
+            isLoadingHandler()
+        
+        }else{
+            infoStudent.innerHTML = `
+            <li class="list-group-item">
+                Talaba-ID: 
+            </li>
+            <li class="list-group-item">F.I.O: </li>
+            <li class="list-group-item">Fakultet: </li>
+            <li class="list-group-item">Yo'nalish: </li>
+            <li class="list-group-item">Bosqich: </li>
+            <li class="list-group-item">Guruh: </li>`
+
+            //document.getElementById('receipt_number').disabled = true
+
+            isLoading = false
+            isLoadingHandler()
+        }
+
+    }
+
+    function isLoadingHandler(){
+        if(isLoading){
+            $('#loadingDiv').show()
+            $('#list-group-ajax').hide()
+        }else{
+        $('#loadingDiv').hide()
+        $('#list-group-ajax').show()
+        }
+    }
+
+    function isLoadingHandlerInfo(){
+        if(isLoadingInfo){
+            $('#loadingInfo').show()
+            $('#table-data-ajax').hide()
+
+        }else{
+        $('#loadingInfo').hide()
+        $('#table-data-ajax').show()
+
+        }
+    }
+
+    function getBedId(id){
+        document.getElementById("bed_number_id").value = id
+     
+    }
+
+    function getStudendId(bed_id, student_id){
+        document.getElementById('bed_id').value = bed_id
+        document.getElementById('student_delete_id').value = student_id
+    }
+
+    function getBreadcrumb(dorm, floor, room, bed){
+
+        document.getElementById('dorm_title').innerHTML = dorm
+        document.getElementById('floor_title').innerHTML = floor
+        document.getElementById('room_title').innerHTML = room
+        document.getElementById('bed_number_title').innerHTML = bed
+       
+    }
+
+
+
+    function getPaymentInfo(id){
+
+        document.getElementById('student_add_id').value = id
+
+        isLoadingInfo = true
+        isLoadingHandlerInfo()
+
+        
+
+        let value = id
+
+        $.ajax({
+            url:"/get/payment/info",
+            method:"GET",
+            data:{'value':value},
+            dataType:'json',
+            success:function(response){
+                
+                addTableData(response.data)
+                addTotalInfo(response.total_info)
+
+               
+            },
+            error:function(error){
+                console.log(error)
+            }
+       });
+    }
+
+
+    let tableAjax = document.querySelector('#table-data-ajax')
+
+    function addTableData(payments){
+        tableAjax.innerHTML = ''
+        if (payments.length > 0) {
+
+            payments.forEach(p => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+               
+                    <td class="text-bold-500">${p.student_id}</td>
+                    <td>${p.receipt_number}</td>
+                    <td class="text-bold-500">${p.payment_amount}</td>
+                    
+               
+                `
+                tableAjax.append(tr)
+            })
+
+            
+
+            isLoadingInfo = false
+            isLoadingHandlerInfo()
+        }
+    }
+    function addTotalInfo(info){
+        let payment_amount =  new Intl.NumberFormat('ru-RU').format(info['0'].payment_amount)
+        let difference_money = new Intl.NumberFormat('ru-RU').format(info['0'].difference_money )
+
+        $('#total_payment_amount').html(payment_amount)
+        $('#total_difference_money').html(difference_money)
+
+       
+
+
+    }
+
+   
+
+
+    
+   
+
+
+</script>
+
+
+
+    <style>
+        .payment-card{
+            border-radius: 4px;
+            background: #fff;   
+            box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+            transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+            padding: 14px 10px 10px 10px;
+           
+            }
+
+        .choices__inner{
+            background-color: white;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            transform: rotate(180deg);
+            }
+            .accordion-button::after {
+            transform: rotate(-90deg);
+
+            
+              }
+
+        .accordion-item{
+            margin-top: 10px;
+            border-radius: 10px !important;
+        }
+        .acc-item{
+            width: 200px;
+        }
+        .acc-item-btn{
+            width: 160px !important;
+        }
+    
+        .floor-body .accordion-button{
+            width: 140px;
+            margin-left: -15px;
+        }
+        .student-body{
+            margin-left: 100px;
+        }
+        .room-body{
+            width: 150px;
+        }
+        .room-body .accordion-button{
+            width: 120px;
+        }
+        .c-body{
+            position:absolute;
+            left: 555px;
+            width:150px; 
+            background-color: white;
+            margin-top: -50px;
+            border-radius: 10px;
+            animation: AccAnimation 1s;
+        }
+        .accordion-button{
+           
+            width: 200px;
+            border-radius: 10px;
+            padding: 10px 10px;
+            
+        }
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: white;
+           /* background-color: #435EBE; */
+           
+        }
+  
+        .c-body-floor{
+            position:absolute;
+            left: 170px;
+            width:150px; 
+            background-color: white;
+            margin-top: -50px;
+            border-radius: 10px;
+            animation: AccAnimation 1s;
+        }
+        
+        .arrow{
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            position: relative;
+            top: -10px;
+            left: 50px;
+            transform: rotate(45deg);
+            
+        }
+        
+        .arrow-floor{
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            position: relative;
+            top: 20px;
+            left: -10px;
+            transform: rotate(45deg);
+            
+        }
+
+        @keyframes AccAnimation{
+            from{
+                opacity: 0;
+            }
+            to{
+                opacity: 1;
+            }
+        }
+
+       .accordion-button{
+           font-size: calc(14px + 0.390625vw);
+        }
+        .accordion-body .btn{
+           font-size: calc(12px + 0.390625vw);
+
+       }
+   
+       .modal-body input {
+        font-size: calc(16px + 0.390625vw);
+    }
+    select{
+        font-size: calc(16px + 0.390625vw);
+
+    }
+    </style>
+
+
+{% endblock content %}
