@@ -22,8 +22,8 @@ from main.views import handler_404, handler_500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls'), name="main"),
-    path('student/', include('student.urls'), name="student"),
+    path('main/', include('main.urls'), name="main"),
+    path('', include('student.urls'), name="student"),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 
 ]

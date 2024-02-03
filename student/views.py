@@ -8,7 +8,6 @@ from main.help import accommadationInfo
 
 
 
-
 class HomeViewStudent(View):
     # @deco_login
     # @deco_url_student
@@ -19,7 +18,6 @@ class HomeViewStudent(View):
         students = Student.objects.filter(is_student=True)
         beds = Bed.objects.filter(status=False).count()
         students = students.count()    
-        
         
         
         context = {

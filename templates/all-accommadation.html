@@ -89,7 +89,11 @@ Talaba biriktirish
 
 
                                                         <div class="accordion-header room-body" id="flush-headingRoom-{{ r.id }}" >
+                                                          
+
                                                             <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRoom-{{ r.id }}" aria-expanded="false" aria-controls="flush-collapseRoom-{{ r.id }}">
+                                                                
+
                                                                 {{ r.title }}
                                                                 
                                                                 {% for room_info in room_info %} 
@@ -101,6 +105,7 @@ Talaba biriktirish
                                                                 {% else %}  
                                                                 {% endif %}
                                                                 {% endfor %}
+
                                                             </button>
                                                         </div>
                                                         
@@ -129,12 +134,12 @@ Talaba biriktirish
                                                                             </button>
                                                                         </div>
 
-                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:350px;" >
+                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:300px;" >
                                                                                 <div class="arrow-floor">
                                                         
                                                                                 </div>
 
-                                                                                <div class="accordion-body" style="width:350px;">
+                                                                                <div class="accordion-body" style="width:300px;">
                                                                                     <div class="list-group">
                                                                                         <span class="list-group-item">
                                                                                             Talaba-ID: {{ b.beds.all.0.student_id }}
@@ -180,17 +185,17 @@ Talaba biriktirish
                                                                             </button>
                                                                          
                                                                         </div>
-                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:350px;" >
+                                                                        <div id="flush-collapseStudentId-{{ b.id }}" class="accordion-collapse collapse c-body-floor student-body" aria-labelledby="flush-headingStudentId-{{ b.id }}" data-bs-parent="#accordionFlushStudentId" style="width:300px;" >
                                                                             <div class="arrow-floor">
                                                     
                                                                             </div>
-                                                                            <div class="accordion-body d-block" style="width:350px;">
+                                                                            <div class="accordion-body d-block" style="width:300px;">
                                                                                 <p class="text-center">
                                                                                     Ushbu joy bo'sh !
                                                                                 </p>
                                                                                 <button class="btn icon icon-left btn-primary text-center " 
                                                                                 data-bs-toggle="modal" data-bs-target="#inlineConnectStudent" 
-                                                                                style="margin-left: 70px;" onclick="getBreadcrumb('{{ a.title }}', '{{ f.title }}', '{{r.title}}', '{{ b.bed_number }}')"><span class="fa-fw select-all fas me-2"></span>Talaba biriktirish</button>
+                                                                                style="margin-left: 50px;" onclick="getBreadcrumb('{{ a.title }}', '{{ f.title }}', '{{r.title}}', '{{ b.bed_number }}')"><span class="fa-fw select-all fas me-2"></span>Talaba biriktirish</button>
                                                                                
                                                                                 
                                                                              
@@ -756,6 +761,7 @@ Talaba biriktirish
         }
         .acc-item{
             width: 200px;
+
         }
         .acc-item-btn{
             width: 160px !important;
@@ -839,20 +845,57 @@ Talaba biriktirish
         }
 
        .accordion-button{
-           font-size: calc(14px + 0.390625vw);
+            font-size: calc(14px +0.390625vw);
         }
         .accordion-body .btn{
-           font-size: calc(12px + 0.390625vw);
+            font-size: calc(12px +0.390625vw);
 
        }
    
        .modal-body input {
-        font-size: calc(16px + 0.390625vw);
+        font-size: calc(14px +0.390625vw);
     }
     select{
-        font-size: calc(16px + 0.390625vw);
+        font-size: calc(14px +0.390625vw);
 
     }
+
+    @media (max-height:768px) and (max-width:1200px){
+        .c-body{
+            position:absolute;
+            left: 215px;
+            width:150px; 
+            background-color: white;
+            margin-top: -50px;
+            border-radius: 10px;
+            animation: AccAnimation 1s;
+        }
+        
+        .acc-item{
+            width: 150px;
+        }
+
+        .accordion-button{
+            font-size: 14px;
+        }
+        .accordion-body .btn{
+            font-size: 14px;
+
+       }
+   
+       .modal-body input {
+        font-size: 14px;
+       }
+        select{
+            font-size: 14px;
+
+        }
+        span{
+            font-size: 14px !important;
+        }
+    }
+
+
     </style>
 
 

@@ -16,12 +16,12 @@
                     <div class="card p-4">
                         <div class="card-body px-4 py-4-5">
                             <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                <div class="col-md-4 col-lg-4 d-flex justify-content-start ">
                                     <div class="the-icon stats-icon purple mb-2">
                                         <span class="fa-fw select-all fas text-white fs-5"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                <div class="col-md-8 col-lg-8  col-xxl-7">
                                     <span class="text-muted font-semibold">TTJ soni</>
                                     <h6 class="font-extrabold mb-0">{{ all_dormitory }} ta</h6>
                                 </div>
@@ -33,12 +33,12 @@
                     <div class="card p-4"> 
                         <div class="card-body px-4 py-4-5">
                             <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                <div class="col-md-4 col-lg-3  d-flex justify-content-start ">
                                     <div class="the-icon stats-icon blue mb-2">
                                         <span class="fa-fw select-all fas text-white fs-5"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                <div class="col-md-8 col-lg-8 ">
                                     <span class="text-muted font-semibold ">Xonalar soni</>
                                     <h6 class="font-extrabold mb-0">{{ rooms }} ta</h6>
                                 </div>
@@ -47,14 +47,14 @@
                     </div>
                 </div>
                 <div class="col-6 col-lg-4 col-md-6">
-                    <div class="card p-3">
+                    <div class="card p-4">
                         <div class="row ">
-                            <div class="col-md-12 text-center d-flex mt-1" >
+                            <div class="col-md-12 col-lg-12 text-center d-flex " >
                                 <p class="text-muted mx-auto">Talabalar soni: <span class="fw-bold" style="color: #25396f;">{{ students }} ta</></>
 
                             </div>
-                            <div class="col-md-6" >
-                                <div class="col-md-12" style="text-align:center;">
+                            <div class="col-md-6 col-lg-6" >
+                                <div class="col-md-12 col-lg-12" style="text-align:center;">
                                     <p class="text-muted mx-auto">O'g'il bolalar</p>
                                 </div>
                                
@@ -69,8 +69,8 @@
                                
 
                             </div>
-                            <div class="col-md-6" >
-                                <div class="col-md-12" style="text-align:center;">
+                            <div class="col-md-6 col-lg-6" >
+                                <div class="col-md-12 col-lg-12" style="text-align:center;">
                                     <p class="text-muted mx-auto">Qiz bolalar</p>
                                 </div>
                                
@@ -91,13 +91,13 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-lg-4 col-md-6  ">
+                <div class="col-lg-4 col-md-6  ">
 
-                        <div class="card p-3 all-part py-4-5"  >
+                        <div class="card all-part py-6"  >
 
                             <div class="row">
 
-                                <div class="col-md-6 first-part ">
+                                <div class="col-md-6 col-lg-6 first-part ">
                                     <div class="row">
                                         <div class="col-md-12">
                                             {% if autumn_semester == None %}
@@ -114,7 +114,7 @@
 
                                 </div>
 
-                                <div class="col-md-6 second-part d-block ">
+                                <div class="col-md-6 col-lg-6 second-part d-block ">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p class="float-end">Bahorgi</p>
@@ -136,16 +136,16 @@
 
                 <div class="col-6 col-lg-4 col-md-6">
                     <div class="card ">
-                        <div class="card-body px-4 py-4-5">
+                        <div class="card-body px-4 py-4-5 app-card">
                             <div class="row ">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                <div class="col-md-4 col-lg-4 d-flex justify-content-start ">
                                     <div class="stats-icon  mb-2" style="background-color: gray;">
                                         <span class="fa-fw select-all fas text-white fs-5"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <span class="text-muted font-semibold"> </>
-                                    <h6 class="font-extrabold mb-0"><button class="btn btn-info text-white btn-xxl" data-bs-toggle="modal" data-bs-target="#inlineAppTable">Arizalarni ko'rish</button></h6>
+                                <div class="col-md-8 col-lg-8 ">
+                                    <span class="text-muted font-semibold"> </span>
+                                    <h6 class="font-extrabold mb-0"><button class="btn btn-info text-white " data-bs-toggle="modal" data-bs-target="#inlineAppTable">Arizalarni ko'rish</button></h6>
                                 </div> 
                             </div>
                         </div>
@@ -201,9 +201,10 @@
 
 </div>
 
-<style>
+<style scoped>
     .all-part{
-       
+        padding-top: 35px !important;
+        padding-bottom: 35px !important;
         background: linear-gradient(to top left, white 0 50%, #F2F7FF 50% 52% , white 52% 100%);
     }
     .first-part p{
@@ -263,6 +264,32 @@
         .btn{
             font-size: calc(12px + 0.390625vw);
 
+        }
+
+        @media (max-height:768px) and (max-width:1440px){
+            .card{
+                border-radius: 4px;
+                box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+                transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+                padding: 14px 10px 18px 10px;
+                cursor: pointer;
+                z-index: 0;
+        
+                }
+                
+                .card:hover{
+                transform: scale(1.05);
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+                }
+                .all-part{
+                    padding-top: 45px !important;
+                    padding-bottom: 45px !important;
+                }
+                .app-card{
+                    padding-top: 45px !important;
+                    padding-bottom: 45px !important;
+                }
         }
         
      

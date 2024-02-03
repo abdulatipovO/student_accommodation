@@ -3,7 +3,7 @@
 {% block content-student %}
 
 <div class="page-heading" style="margin-top: -85px;">
-    <h3>Info dorm</h3>
+    <h3>Talabalar turar joylari</h3>
 </div> 
     
 <div class="page-content" >
@@ -195,104 +195,110 @@
 
 <style>
 
-        .accordion-button:not(.collapsed)::after {
-            transform: rotate(180deg);
-            }
-            .accordion-button::after {
-            transform: rotate(-90deg);
+    .accordion-button:not(.collapsed)::after {
+        transform: rotate(180deg);
+        }
+        .accordion-button::after {
+        transform: rotate(-90deg);
 
-            
-              }
+        
+          }
 
-        .accordion-item{
-            margin-top: 10px;
-            border-radius: 10px !important;
-        
-            
+    .accordion-item{
+        margin-top: 10px;
+        border-radius: 10px !important;
+    }
+    .acc-item{
+        width: 200px;
+    }
+    .acc-item-btn{
+        width: 160px !important;
+    }
 
-        }
-        .acc-item{
-            width: 200px;
-        }
-        .acc-item-btn{
-            width: 170px !important;
-        }
+    .floor-body .accordion-button{
+        width: 140px;
+        margin-left: -15px;
+    }
+    .student-body{
+        margin-left: 100px;
+    }
+    .room-body{
+        width: 150px;
+    }
+    .room-body .accordion-button{
+        width: 120px;
+    }
+    .c-body{
+        position:absolute;
+        left: 255px;
+        width:150px; 
+        background-color: white;
+        margin-top: -50px;
+        border-radius: 10px;
+        animation: AccAnimation 1s;
+    }
+    .accordion-button{
+       
+        width: 200px;
+        border-radius: 10px;
+        padding: 10px 10px;
         
-        .floor-body .accordion-button{
-            width: 120px;
-        }
-        .student-body{
-            margin-left: 100px;
-        }
-        .room-body{
-            width: 150px;
-        }
-        .room-body .accordion-button{
-            width: 120px;
-        }
-        .c-body{
-            position:absolute;
-            left: 555px;
-            width:150px; 
-            background-color: white;
-            margin-top: -50px;
-            border-radius: 10px;
-            animation: AccAnimation 1s;
-        }
-        .accordion-button{
-           
-            width: 200px;
-            border-radius: 10px;
-            padding: 10px 10px;
-            
-        }
-        .accordion-button:focus {
-            box-shadow: none;
-            border-color: white;
-           /* background-color: #435EBE; */
-           
-        }
-  
-        .c-body-floor{
-            position:absolute;
-            left: 170px;
-            width:150px; 
-            background-color: white;
-            margin-top: -50px;
-            border-radius: 10px;
-            animation: AccAnimation 1s;
-        }
-        
-        .arrow{
-            width: 25px;
-            height: 25px;
-            background-color: white;
-            position: relative;
-            top: -10px;
-            left: 50px;
-            transform: rotate(45deg);
-            
-        }
-        
-        .arrow-floor{
-            width: 25px;
-            height: 25px;
-            background-color: white;
-            position: relative;
-            top: 20px;
-            left: -10px;
-            transform: rotate(45deg);
-            
-        }
+    }
+    .accordion-button:focus {
+        box-shadow: none;
+        border-color: white;
+       /* background-color: #435EBE; */
+       
+    }
 
-        @keyframes AccAnimation{
-            from{
-                opacity: 0;
-            }
-            to{
-                opacity: 1;
-            }
+    .c-body-floor{
+        position:absolute;
+        left: 170px;
+        width:150px; 
+        background-color: white;
+        margin-top: -50px;
+        border-radius: 10px;
+        animation: AccAnimation 1s;
+    }
+    
+    .arrow{
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        position: relative;
+        top: -10px;
+        left: 50px;
+        transform: rotate(45deg);
+        
+    }
+    
+    .arrow-floor{
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        position: relative;
+        top: 20px;
+        left: -10px;
+        transform: rotate(45deg);
+        
+    }
+
+    @keyframes AccAnimation{
+        from{
+            opacity: 0;
         }
+        to{
+            opacity: 1;
+        }
+    }
+
+   .accordion-button{
+        font-size: calc(14px +0.390625vw);
+    }
+    .accordion-body .btn{
+        font-size: calc(12px +0.390625vw);
+
+   }
    
 </style>
 

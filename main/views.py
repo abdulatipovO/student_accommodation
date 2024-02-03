@@ -96,7 +96,6 @@ class StudentListView(View):
         students = Student.objects.filter(is_student=True)
         students = students.exclude(bed__isnull=True)
         
-        print(students)
         
         context = {
             "students":students
